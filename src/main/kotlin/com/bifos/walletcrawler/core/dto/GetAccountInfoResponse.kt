@@ -1,6 +1,5 @@
 package com.bifos.walletcrawler.core.dto
 
-import java.math.BigDecimal
 import java.math.BigInteger
 
 data class GetAccountInfoResponse(

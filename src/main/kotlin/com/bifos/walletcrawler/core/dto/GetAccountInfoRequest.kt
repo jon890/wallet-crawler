@@ -1,10 +1,16 @@
 package com.bifos.walletcrawler.core.dto
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+
 data class GetAccountInfoRequest(
-    val jsonrpc: String = "2.0",
-    val id: Int = 1,
-    val method: String = "getAccountInfo",
-    val params: List<Any>
+    @JsonIgnore
+    val accountId: String,
+
+    @JsonIgnore
+    val encoding: String = "base58",
+) : BaseSolanaRequest<List<Any>>(
+    method = "getAccountInfo",
+    params = Params(accountId, Params.Encoding(encoding)).toParams()
 ) {
 
     data class Params(
@@ -12,7 +18,7 @@ data class GetAccountInfoRequest(
         val encoding: Encoding
     ) {
         data class Encoding(
-            val encoding: String = "base58"
+            val encoding: String
         )
 
         fun toParams(): List<Any> {
